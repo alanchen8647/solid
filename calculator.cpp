@@ -3,23 +3,38 @@
 
 class DiscountCalculator {
 public:
-    double calculate(const std::string& customerType, double amount) {
-        if (customerType == "Loyal") {
-            return amount * 0.95;
-        } else if (customerType == "VIP") {
-            return amount * 0.90;
-        } else {
-            return amount;
-        }
+    virtual double calculate(double amount) = 0;
+};
+
+class VIPCustomerDiscrount : public DiscountCalculator {
+public:
+    double calculate(double amount) {
+        return amount * 0.90;
     }
 };
 
+class LoyalCustomerDiscount : public DiscountCalculator {
+public:
+    double calculate(double amount) {
+        return amount * 0.95;
+    }
+};
+
+class RegularCustomerDiscount : public DiscountCalculator {
+public:
+    double calculate(double amount) {
+        return amount;
+    }
+};
+
+
 // Included for demonstration
 int main() {
-    DiscountCalculator calc;
+    VIPCustomerDiscrount VIPCustomerDiscount;
+    LoyalCustomerDiscount LoyalCustomerDiscount;
+    RegularCustomerDiscount RegularCustomerDiscount;
     double price = 1000;
-
-    std::cout << "VIP Customer Price: " << calc.calculate("VIP", price) << "\n";
-    std::cout << "Loyal Customer Price: " << calc.calculate("Loyal", price) << "\n";
-    std::cout << "Other Customer Price: " << calc.calculate("Other", price) << "\n";
+    std::cout << "VIP Customer Price: " << VIPCustomerDiscount.calculate(price) << "\n";
+    std::cout << "Loyal Customer Price: " << LoyalCustomerDiscount.calculate(price) << "\n";
+    std::cout << "Regular Customer Price: " << RegularCustomerDiscount.calculate(price) << "\n";
 }
