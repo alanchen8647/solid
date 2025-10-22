@@ -38,6 +38,7 @@ int main() {
     InputProcessor processor;
     Keyboard keyboard;
     Mouse mouse;
-    processor.processInput();
+    processor.processInput(keyboard);
     processor.processInput(mouse);
+    return 0;
 }
